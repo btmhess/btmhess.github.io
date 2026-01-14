@@ -55,24 +55,25 @@ layout: default
       {% assign projects = site.projects %}
       {% for project in projects %}
         <a href="{{ project.url }}" class="project-tile"
-		   data-favorite_order="{{ project.favorite_order }}" 
-		   data-project_date="{{ project.project_date }}" 
-		   data-status="{{ project.status }}" 
-		   data-budget="{{ project.budget }}" 
-		   data-project_slug="{{ project.project_slug }}">
-
-		  <img class="project-thumb" 
-			   src="/assets/projects/{{ project.project_slug }}/thumbnail.png" 
-			   alt="{{ project.title }} thumbnail">
-
-		  <div>
-			<h3>{{ project.title }}</h3>
-			<p><strong>Goal / Purpose:</strong> {{ project.goal }}</p>
-			<p><strong>Date:</strong> {{ project.project_date }}</p>
-			<p><strong>Status:</strong> {{ project.status }}</p>
-			<p><strong>Budget:</strong> ${{ project.budget }}</p>
-		  </div>
-		</a>
+           data-favorite_order="{{ project.favorite_order }}" 
+           data-project_date="{{ project.project_date }}" 
+           data-status="{{ project.status }}" 
+           data-budget="{{ project.budget }}" 
+           data-project_slug="{{ project.project_slug }}">
+        
+          <img class="project-thumb" 
+               src="/assets/projects/{{ project.project_slug }}/thumbnail.png" 
+               alt="{{ project.title }} thumbnail">
+        
+          <div>
+            <h3>{{ project.title }}</h3>
+            <p><strong>Goal / Purpose:</strong> {{ project.goal }}</p>
+            <p><strong>Favorites Order:</strong> {{ project.favorite_order }}</p>
+            <p><strong>Date:</strong> {{ project.project_date }}</p>
+            <p><strong>Status:</strong> {{ project.status }}</p>
+            <p><strong>Budget:</strong> ${{ project.budget }}</p>
+          </div>
+        </a>
       {% endfor %}
     </div>
   </section>
