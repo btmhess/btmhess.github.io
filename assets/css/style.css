@@ -23,6 +23,7 @@ a:hover {
   text-decoration: underline;
 }
 
+
 /* ===========================
    Header & Navigation
 =========================== */
@@ -131,6 +132,41 @@ button.sort-btn:hover {
   margin: 0.15rem 0;
   font-size: 0.95rem;
 }
+
+
+/* ===========================
+   Project Text
+=========================== */
+
+.project-attributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;         /* space between spans */
+  font-size: 0.95rem;
+  margin-bottom: 1rem;  /* extra space below this line */
+}
+
+.project-attributes span {
+  white-space: nowrap;   /* keep each attribute together */
+}
+
+.project-content {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  line-height: 1.6;        /* spacing between lines */
+}
+
+.project-content h2 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.project-content p {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
 
 /* ===========================
    Gallery
