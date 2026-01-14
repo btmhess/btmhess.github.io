@@ -1,6 +1,7 @@
 ---
 layout: project
 title: "Electric Goldwing"
+project_slug: goldwing
 
 # Sorting metadata
 favorite_order: 1

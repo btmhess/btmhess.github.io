@@ -8,6 +8,37 @@ layout: default
   <meta charset="UTF-8">
   <title>{{ page.title }} | My Projects Portfolio</title>
   <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    /* Lightbox styles */
+    #lightbox-overlay {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.9);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+      flex-direction:column;
+    }
+    #lightbox-overlay img {
+      max-width:90%;
+      max-height:80%;
+      margin-bottom:1rem;
+      border-radius:6px;
+    }
+    #lightbox-controls {
+      display:flex;
+      gap:1rem;
+    }
+    #lightbox-controls button {
+      background:#fff;
+      border:none;
+      padding:0.5rem 1rem;
+      border-radius:4px;
+      cursor:pointer;
+    }
+  </style>
 </head>
 <body>
 
@@ -42,7 +73,7 @@ layout: default
 
   <!-- Gallery (excluding thumbnail/banner) -->
   <h2>Gallery</h2>
-  <div id="gallery">
+  <div id="gallery" style="display:flex; flex-wrap:wrap; gap:0.5rem;">
     <em>Loading gallery…</em>
   </div>
 
@@ -64,14 +95,23 @@ layout: default
 
 </main>
 
+<!-- Lightbox overlay -->
+<div id="lightbox-overlay">
+  <img id="lightbox-img" src="" alt="Gallery image">
+  <div id="lightbox-controls">
+    <button id="prev-btn">&larr; Prev</button>
+    <button id="next-btn">Next &rarr;</button>
+    <button id="close-btn">Close</button>
+  </div>
+</div>
+
 <script>
-// --- Gallery loader (excludes manual thumbnail/banner) ---
+// --- Gallery loader ---
 (function() {
   const galleryContainer = document.getElementById("gallery");
   const projectSlug = "{{ page.project_slug }}";
   const folder = "/assets/projects/" + projectSlug + "/";
 
-  // Liquid-generated array of images in the folder
   const images = [
     {% assign project_folder = "assets/projects/" | append: page.project_slug | append: "/" %}
     {% assign project_images = site.static_files | where_exp: "f", "f.path contains project_folder" | sort: "path" %}
@@ -82,25 +122,62 @@ layout: default
     {% endfor %}
   ];
 
-  // Remove thumbnail.png from gallery if it exists
-  const filteredImages = images.filter(name => name != "thumbnail.png");
-
-  if (filteredImages.length === 0) {
-    galleryContainer.innerHTML = "<em>No additional images available.</em>";
-    return;
-  }
-
-  // Display gallery images
+  const galleryImages = images.filter(name => name !== "thumbnail.png");
   galleryContainer.innerHTML = "";
-  filteredImages.forEach(imgName => {
+
+  galleryImages.forEach((imgName, index) => {
     const img = document.createElement("img");
     img.src = folder + imgName;
     img.alt = imgName;
+    img.style.width = "150px";
+    img.style.cursor = "pointer";
+    img.dataset.index = index;
     galleryContainer.appendChild(img);
   });
-})();
 
-// --- Materials CSV loader ---
+  // --- Lightbox functionality ---
+  const overlay = document.getElementById("lightbox-overlay");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const closeBtn = document.getElementById("close-btn");
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = folder + galleryImages[currentIndex];
+    overlay.style.display = "flex";
+  }
+
+  function closeLightbox() {
+    overlay.style.display = "none";
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % galleryImages.length;
+    lightboxImg.src = folder + galleryImages[currentIndex];
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    lightboxImg.src = folder + galleryImages[currentIndex];
+  }
+
+  // Attach click events
+  galleryContainer.querySelectorAll("img").forEach(img => {
+    img.addEventListener("click", () => openLightbox(parseInt(img.dataset.index)));
+  });
+
+  prevBtn.addEventListener("click", showPrev);
+  nextBtn.addEventListener("click", showNext);
+  closeBtn.addEventListener("click", closeLightbox);
+  overlay.addEventListener("click", e => { if(e.target===overlay) closeLightbox(); });
+})();
+</script>
+
+<!-- Materials table loader (unchanged) -->
+<script>
 (async function () {
   const container = document.getElementById("materials-table");
   const projectSlug = "{{ page.project_slug }}";
@@ -117,7 +194,6 @@ layout: default
     const thead = document.createElement("thead");
     const tbody = document.createElement("tbody");
 
-    // Header
     const headerRow = document.createElement("tr");
     rows[0].forEach(h => {
       const th = document.createElement("th");
@@ -126,7 +202,6 @@ layout: default
     });
     thead.appendChild(headerRow);
 
-    // Body
     rows.slice(1).forEach(row => {
       const tr = document.createElement("tr");
       row.forEach(cell => {

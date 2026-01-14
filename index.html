@@ -25,20 +25,20 @@ layout: default
   <section>
     <h2>Projects</h2>
 
-    <!-- Sorting controls -->
-    <div id="sort-controls" style="margin-bottom:1rem;">
-      <label>Sort by: 
-        <select id="sort-select">
-          <option value="favorite_order">Favorites</option>
-          <option value="project_date">Date</option>
-          <option value="status">Status</option>
-          <option value="budget">Budget</option>
-        </select>
-      </label>
+    <!-- Sorting controls: side-by-side toggle buttons -->
+    <div id="sort-controls" style="margin-bottom:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button class="sort-btn" data-key="favorite_order" data-order="asc">Favorites ↑</button>
+      <button class="sort-btn" data-key="favorite_order" data-order="desc">Favorites ↓</button>
+      <button class="sort-btn" data-key="project_date" data-order="asc">Date ↑</button>
+      <button class="sort-btn" data-key="project_date" data-order="desc">Date ↓</button>
+      <button class="sort-btn" data-key="status" data-order="asc">Status ↑</button>
+      <button class="sort-btn" data-key="status" data-order="desc">Status ↓</button>
+      <button class="sort-btn" data-key="budget" data-order="asc">Budget ↑</button>
+      <button class="sort-btn" data-key="budget" data-order="desc">Budget ↓</button>
     </div>
 
     <!-- Project list -->
-    <div id="projects-list">
+    <div id="projects-list" style="display:flex; flex-direction:column; gap:1rem;">
       {% assign projects = site.projects %}
       {% for project in projects %}
         <div class="project-tile"
@@ -46,25 +46,26 @@ layout: default
              data-project_date="{{ project.project_date }}" 
              data-status="{{ project.status }}" 
              data-budget="{{ project.budget }}" 
-             data-project_slug="{{ project.project_slug }}">
+             data-project_slug="{{ project.project_slug }}"
+             style="display:flex; flex-direction:row; align-items:flex-start; border:1px solid #ccc; border-radius:6px; padding:0.75rem; background:#fff;">
+
+          <!-- Thumbnail -->
+          <img class="project-thumb" 
+               src="/assets/projects/{{ project.project_slug }}/thumbnail.png" 
+               alt="{{ project.title }} thumbnail" 
+               style="width:150px; height:auto; margin-right:1rem; border-radius:4px; object-fit:cover;">
           
-          <a href="{{ project.url }}" style="display:flex; align-items:flex-start; text-decoration:none; color:inherit;">
-            <!-- Thumbnail -->
-            <img class="project-thumb" 
-                 src="/assets/projects/{{ project.project_slug }}/thumbnail.png" 
-                 alt="{{ project.title }} thumbnail" 
-                 style="width:150px; height:auto; margin-right:1rem; border-radius:4px; object-fit:cover;">
-            
-            <!-- Project info -->
-            <div>
+          <!-- Project info -->
+          <div style="flex:1;">
+            <a href="{{ project.url }}" style="text-decoration:none; color:inherit;">
               <h3>{{ project.title }}</h3>
-              <p><strong>Goal / Purpose:</strong> {{ project.goal }}</p>
-              <p><strong>Favorites Order:</strong> {{ project.favorite_order }}</p>
-              <p><strong>Date:</strong> {{ project.project_date }}</p>
-              <p><strong>Status:</strong> {{ project.status }}</p>
-              <p><strong>Budget:</strong> ${{ project.budget }}</p>
-            </div>
-          </a>
+            </a>
+            <p><strong>Goal / Purpose:</strong> {{ project.goal }}</p>
+            <p><strong>Favorites Order:</strong> {{ project.favorite_order }}</p>
+            <p><strong>Date:</strong> {{ project.project_date }}</p>
+            <p><strong>Status:</strong> {{ project.status }}</p>
+            <p><strong>Budget:</strong> ${{ project.budget }}</p>
+          </div>
         </div>
       {% endfor %}
     </div>
@@ -76,15 +77,12 @@ document.addEventListener("DOMContentLoaded", function() {
   const container = document.getElementById("projects-list");
   const tiles = Array.from(container.querySelectorAll(".project-tile"));
 
-  // Sorting functionality
-  const select = document.getElementById("sort-select");
-
-  function sortProjects(key) {
+  function sortProjects(key, order = "asc") {
     const sorted = tiles.slice().sort((a, b) => {
       let valA = a.dataset[key];
       let valB = b.dataset[key];
 
-      // Convert dates YYYY-MM to comparable numbers
+      // Dates: convert YYYY-MM to comparable numbers
       if (key === "project_date") {
         valA = valA.replace("-", "");
         valB = valB.replace("-", "");
@@ -92,20 +90,153 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Numeric sort
       if (!isNaN(valA) && !isNaN(valB)) {
-        return parseFloat(valA) - parseFloat(valB);
+        valA = parseFloat(valA);
+        valB = parseFloat(valB);
       }
 
-      // Text sort
-      return valA.localeCompare(valB);
+      // Compare
+      if (valA < valB) return order === "asc" ? -1 : 1;
+      if (valA > valB) return order === "asc" ? 1 : -1;
+      return 0;
     });
 
     sorted.forEach(tile => container.appendChild(tile));
   }
 
-  // Initial sort
-  sortProjects("favorite_order");
+  // Initial sort by favorite_order ascending
+  sortProjects("favorite_order", "asc");
 
-  select.addEventListener("change", e => sortProjects(e.target.value));
+  // Attach button event listeners
+  const buttons = document.querySelectorAll(".sort-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.key;
+      const order = btn.dataset.order;
+      sortProjects(key, order);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
+---
+layout: default
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Projects Portfolio</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <div>
+      <a href="/">Home</a>
+      <a href="/index.html">Projects</a>
+    </div>
+    <h1>My Projects Portfolio</h1>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <h2>Projects</h2>
+
+    <!-- Sorting controls: side-by-side toggle buttons -->
+    <div id="sort-controls" style="margin-bottom:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button class="sort-btn" data-key="favorite_order" data-order="asc">Favorites ↑</button>
+      <button class="sort-btn" data-key="favorite_order" data-order="desc">Favorites ↓</button>
+      <button class="sort-btn" data-key="project_date" data-order="asc">Date ↑</button>
+      <button class="sort-btn" data-key="project_date" data-order="desc">Date ↓</button>
+      <button class="sort-btn" data-key="status" data-order="asc">Status ↑</button>
+      <button class="sort-btn" data-key="status" data-order="desc">Status ↓</button>
+      <button class="sort-btn" data-key="budget" data-order="asc">Budget ↑</button>
+      <button class="sort-btn" data-key="budget" data-order="desc">Budget ↓</button>
+    </div>
+
+    <!-- Project list -->
+    <div id="projects-list" style="display:flex; flex-direction:column; gap:1rem;">
+      {% assign projects = site.projects %}
+      {% for project in projects %}
+        <div class="project-tile"
+             data-favorite_order="{{ project.favorite_order }}" 
+             data-project_date="{{ project.project_date }}" 
+             data-status="{{ project.status }}" 
+             data-budget="{{ project.budget }}" 
+             data-project_slug="{{ project.project_slug }}"
+             style="display:flex; flex-direction:row; align-items:flex-start; border:1px solid #ccc; border-radius:6px; padding:0.75rem; background:#fff;">
+
+          <!-- Thumbnail -->
+          <img class="project-thumb" 
+               src="/assets/projects/{{ project.project_slug }}/thumbnail.png" 
+               alt="{{ project.title }} thumbnail" 
+               style="width:150px; height:auto; margin-right:1rem; border-radius:4px; object-fit:cover;">
+          
+          <!-- Project info -->
+          <div style="flex:1;">
+            <a href="{{ project.url }}" style="text-decoration:none; color:inherit;">
+              <h3>{{ project.title }}</h3>
+            </a>
+            <p><strong>Goal / Purpose:</strong> {{ project.goal }}</p>
+            <p><strong>Favorites Order:</strong> {{ project.favorite_order }}</p>
+            <p><strong>Date:</strong> {{ project.project_date }}</p>
+            <p><strong>Status:</strong> {{ project.status }}</p>
+            <p><strong>Budget:</strong> ${{ project.budget }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const container = document.getElementById("projects-list");
+  const tiles = Array.from(container.querySelectorAll(".project-tile"));
+
+  function sortProjects(key, order = "asc") {
+    const sorted = tiles.slice().sort((a, b) => {
+      let valA = a.dataset[key];
+      let valB = b.dataset[key];
+
+      // Dates: convert YYYY-MM to comparable numbers
+      if (key === "project_date") {
+        valA = valA.replace("-", "");
+        valB = valB.replace("-", "");
+      }
+
+      // Numeric sort
+      if (!isNaN(valA) && !isNaN(valB)) {
+        valA = parseFloat(valA);
+        valB = parseFloat(valB);
+      }
+
+      // Compare
+      if (valA < valB) return order === "asc" ? -1 : 1;
+      if (valA > valB) return order === "asc" ? 1 : -1;
+      return 0;
+    });
+
+    sorted.forEach(tile => container.appendChild(tile));
+  }
+
+  // Initial sort by favorite_order ascending
+  sortProjects("favorite_order", "asc");
+
+  // Attach button event listeners
+  const buttons = document.querySelectorAll(".sort-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.key;
+      const order = btn.dataset.order;
+      sortProjects(key, order);
+    });
+  });
 });
 </script>
 
