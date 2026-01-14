@@ -23,9 +23,10 @@ layout: default
 
 <main>
 
-  <!-- Banner image -->
+  <!-- Banner image (manual thumbnail preferred) -->
   <div id="banner" style="text-align:center; margin-bottom:1rem;">
-    <em>Loading banner…</em>
+    <img id="banner-img" src="/assets/projects/{{ page.project_slug }}/thumbnail.png" 
+         alt="{{ page.title }} banner" style="max-width:100%; border-radius:4px;">
   </div>
 
   <!-- Project metadata -->
@@ -39,7 +40,7 @@ layout: default
     <p>{{ page.specifications }}</p>
   </section>
 
-  <!-- Gallery -->
+  <!-- Gallery (excluding thumbnail/banner) -->
   <h2>Gallery</h2>
   <div id="gallery">
     <em>Loading gallery…</em>
@@ -64,10 +65,9 @@ layout: default
 </main>
 
 <script>
-// --- Auto-generate gallery using Jekyll's static_files ---
+// --- Gallery loader (excludes manual thumbnail/banner) ---
 (function() {
   const galleryContainer = document.getElementById("gallery");
-  const bannerContainer = document.getElementById("banner");
   const projectSlug = "{{ page.project_slug }}";
   const folder = "/assets/projects/" + projectSlug + "/";
 
@@ -82,18 +82,17 @@ layout: default
     {% endfor %}
   ];
 
-  if (images.length === 0) {
-    galleryContainer.innerHTML = "<em>No images available.</em>";
-    bannerContainer.innerHTML = "";
+  // Remove thumbnail.png from gallery if it exists
+  const filteredImages = images.filter(name => name != "thumbnail.png");
+
+  if (filteredImages.length === 0) {
+    galleryContainer.innerHTML = "<em>No additional images available.</em>";
     return;
   }
 
-  // Banner: first image
-  bannerContainer.innerHTML = '<img src="' + folder + images[0] + '" alt="Banner Image" style="max-width:100%; border-radius:4px;">';
-
-  // Gallery: remaining images
+  // Display gallery images
   galleryContainer.innerHTML = "";
-  images.slice(1).forEach(imgName => {
+  filteredImages.forEach(imgName => {
     const img = document.createElement("img");
     img.src = folder + imgName;
     img.alt = imgName;
