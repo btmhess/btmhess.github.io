@@ -12,10 +12,12 @@ layout: default
 <body>
 
 <header>
-  <h1>My Projects Portfolio</h1>
   <nav>
-    <a href="/">Home</a>
-    <!-- Add more nav links if needed -->
+    <div>
+      <a href="/">Home</a>
+      <a href="/index.html">Projects</a>
+    </div>
+    <h1>My Projects Portfolio</h1>
   </nav>
 </header>
 
@@ -40,25 +42,23 @@ layout: default
       {% assign projects = site.projects %}
       {% for project in projects %}
         {% assign project_folder = "assets/projects/" | append: project.project_slug | append: "/" %}
-
-        {% comment %}
-        Attempt to pick the first image in the project folder as thumbnail
-        {% endcomment %}
-        {% assign project_images = site.static_files | where_exp: "f", "f.path contains project_folder" %}
-        {% assign project_images = project_images | sort: "path" %}
+        {% assign project_images = site.static_files | where_exp: "f", "f.path contains project_folder" | sort: "path" %}
         {% if project_images.size > 0 %}
-          {% assign thumbnail = project_images[0].url %}
+          {% assign thumbnail = project_images[0].name %}
         {% else %}
-          {% assign thumbnail = "/assets/img/default-thumbnail.png" %}
+          {% assign thumbnail = "" %}
         {% endif %}
 
         <div class="project-card" 
              data-favorite_order="{{ project.favorite_order }}" 
              data-project_date="{{ project.project_date }}" 
              data-status="{{ project.status }}" 
-             data-budget="{{ project.budget }}">
+             data-budget="{{ project.budget }}" 
+             data-project_slug="{{ project.project_slug }}"
+             data-thumbnail="{{ thumbnail }}">
           <a href="{{ project.url }}">
-            <img src="{{ thumbnail }}" alt="{{ project.title }} thumbnail">
+            <!-- Thumbnail img will be filled by JS -->
+            <img class="project-thumb" alt="{{ project.title }} thumbnail">
             <h3>{{ project.title }}</h3>
           </a>
           <p>{{ project.goal }}</p>
@@ -68,78 +68,54 @@ layout: default
   </section>
 </main>
 
-<script src="/assets/js/sort.js"></script>
-
-<style>
-/* Quick grid layout for project cards */
-#projects-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.project-card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0.5rem;
-  background-color: #fafafa;
-  transition: box-shadow 0.2s;
-}
-
-.project-card:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.project-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-#sort-controls {
-  margin-bottom: 1rem;
-}
-</style>
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const select = document.getElementById("sort-select");
   const container = document.getElementById("projects-list");
+  const cards = Array.from(container.querySelectorAll(".project-card"));
+
+  // Automatically fill thumbnails
+  cards.forEach(card => {
+    const imgEl = card.querySelector("img.project-thumb");
+    const slug = card.dataset.project_slug;
+    const thumb = card.dataset.thumbnail;
+    if (thumb && thumb !== "") {
+      imgEl.src = "/assets/projects/" + slug + "/" + thumb;
+      imgEl.alt = card.querySelector("h3").textContent + " thumbnail";
+    } else {
+      imgEl.src = "/assets/img/default-thumbnail.png"; // fallback
+    }
+  });
+
+  // Sorting functionality
+  const select = document.getElementById("sort-select");
 
   function sortProjects(key) {
-    const cards = Array.from(container.querySelectorAll(".project-card"));
-
-    cards.sort((a, b) => {
+    const sorted = cards.slice().sort((a, b) => {
       let valA = a.dataset[key];
       let valB = b.dataset[key];
 
-      // For dates: convert YYYY-MM to comparable numbers
+      // Dates: convert YYYY-MM to comparable numbers
       if (key === "project_date") {
         valA = valA.replace("-", "");
         valB = valB.replace("-", "");
       }
 
-      // For numeric fields
+      // Numeric sort
       if (!isNaN(valA) && !isNaN(valB)) {
         return parseFloat(valA) - parseFloat(valB);
       }
 
-      // For strings (status)
+      // Text sort
       return valA.localeCompare(valB);
     });
 
-    // Re-append in sorted order
-    cards.forEach(card => container.appendChild(card));
+    sorted.forEach(card => container.appendChild(card));
   }
 
-  // Initial sort by favorite_order
+  // Initial sort by favorites
   sortProjects("favorite_order");
 
-  // Change event
-  select.addEventListener("change", (e) => {
-    sortProjects(e.target.value);
-  });
+  select.addEventListener("change", e => sortProjects(e.target.value));
 });
 </script>
 

@@ -11,10 +11,10 @@ The site documents personal engineering and fabrication projects with:
 
 ## Structure
 
-- `_projects/` — individual project folders
-- `index.html` — main project list
+- `_projects/` — individual project files
+- `index.html` — main project list / home page
 - `_layouts/` — site templates
-- `assets/` — CSS and JavaScript
+- `assets/` — Project assets (tables and images), CSS and JavaScript
 
 ## Viewing the site
 
