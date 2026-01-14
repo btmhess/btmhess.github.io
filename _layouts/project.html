@@ -18,20 +18,16 @@ layout: default
 <h2>Gallery</h2>
 
 <div class="gallery">
-  {% assign project_source_dir = "_projects/" | append: page.project_slug | append: "/" %}
+  {% assign project_folder = "_projects/" | append: page.project_slug | append: "/" %}
 
-  {% for file in site.static_files %}
-    {% if file.path contains project_source_dir %}
-      {% if file.extname == ".jpg" or file.extname == ".jpeg"
-         or file.extname == ".png" or file.extname == ".webp" %}
-        <img src="{{ file.url }}" alt="">
-      {% endif %}
+  {% assign project_images = site.static_files | where_exp: "f", "f.path contains project_folder" %}
+  {% assign project_images = project_images | sort: "path" %}
+
+  {% for file in project_images %}
+    {% if file.extname == ".jpg" or file.extname == ".jpeg" or file.extname == ".png" or file.extname == ".webp" %}
+      <img src="{{ file.url }}" alt="">
     {% endif %}
   {% endfor %}
-  
-  {% unless found %}
-    <p><em>No images available.</em></p>
-  {% endunless %}
 </div>
 
 <h2>Materials / Parts List</h2>
