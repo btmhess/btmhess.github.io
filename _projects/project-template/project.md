@@ -1,7 +1,7 @@
 ---
 layout: project
 title: "Project Template"
-project_slug: goldwing
+project_slug: project-template
 
 # Sorting metadata
 favorite_order: 10
@@ -24,5 +24,5 @@ specifications: >
 
 related:
   - title: "Goldwing"
-    url: /projects/goldwing/
+    url: /projects/goldwing/project
 ---

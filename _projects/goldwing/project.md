@@ -23,5 +23,5 @@ specifications: >
 
 related:
   - title: "Project Template"
-    url: /projects/project-template/
+    url: /projects/project-template/project
 ---
