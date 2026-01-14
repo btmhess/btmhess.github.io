@@ -18,13 +18,13 @@ layout: default
 <h2>Gallery</h2>
 
 <div class="gallery">
-  {% assign project_dir = "/_projects/" | append: page.project_slug | append: "/" %}
+  {% assign project_source_dir = "_projects/" | append: page.project_slug | append: "/" %}
 
   {% for file in site.static_files %}
-    {% if file.path contains project_dir %}
+    {% if file.path contains project_source_dir %}
       {% if file.extname == ".jpg" or file.extname == ".jpeg"
          or file.extname == ".png" or file.extname == ".webp" %}
-        <img src="{{ file.path }}" alt="">
+        <img src="{{ file.url }}" alt="">
       {% endif %}
     {% endif %}
   {% endfor %}
