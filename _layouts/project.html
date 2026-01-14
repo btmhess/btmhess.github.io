@@ -16,7 +16,6 @@ layout: default
 <p>{{ page.specifications }}</p>
 
 <h2>Gallery</h2>
-
 <div class="gallery">
   {% assign project_folder = "_projects/" | append: page.project_slug | append: "/" %}
 
@@ -31,26 +30,19 @@ layout: default
 </div>
 
 <h2>Materials / Parts List</h2>
-
 <div id="materials-table">
   <em>Loading materials list…</em>
 </div>
 
-<h2>Related Projects</h2>
-<ul>
-  {% for r in page.related %}
-    <li><a href="{{ r.url }}">{{ r.title }}</a></li>
-  {% endfor %}
-</ul>
-
 <script>
 (async function () {
   const container = document.getElementById("materials-table");
-  const csvUrl = "/projects/{{ page.project_slug }}/materials.csv";
+  const projectSlug = "{{ page.project_slug }}";
+  const csvUrl = "/projects/" + projectSlug + "/materials.csv";
 
   try {
     const response = await fetch(csvUrl);
-    if (!response.ok) throw new Error("CSV not found");
+    if (!response.ok) throw new Error("No materials.csv found");
 
     const text = await response.text();
     const rows = text.trim().split("\n").map(r => r.split(","));
@@ -68,7 +60,7 @@ layout: default
     });
     thead.appendChild(headerRow);
 
-    // Rows
+    // Body
     rows.slice(1).forEach(row => {
       const tr = document.createElement("tr");
       row.forEach(cell => {
@@ -84,9 +76,16 @@ layout: default
 
     container.innerHTML = "";
     container.appendChild(table);
-  } catch {
+  } catch (err) {
     container.innerHTML = "<em>No materials list available.</em>";
+    console.warn("Materials table load failed:", err);
   }
 })();
 </script>
 
+<h2>Related Projects</h2>
+<ul>
+  {% for r in page.related %}
+    <li><a href="{{ r.url }}">{{ r.title }}</a></li>
+  {% endfor %}
+</ul>
