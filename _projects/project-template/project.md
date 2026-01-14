@@ -1,6 +1,7 @@
 ---
 layout: project
 title: "Project Template"
+project_slug: goldwing
 
 # Sorting metadata
 favorite_order: 10
