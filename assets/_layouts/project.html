@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<h1>{{ page.title }}</h1>
+
+<p><strong>Goal:</strong> {{ page.goal }}</p>
+
+<h2>Requirements</h2>
+<p>{{ page.requirements }}</p>
+
+<h2>Result / Current Incarnation</h2>
+<p>{{ page.result }}</p>
+
+<h2>Specifications</h2>
+<p>{{ page.specifications }}</p>
+
+<h2>Gallery</h2>
+
+<div class="gallery">
+  {% assign project_path = page.path | split: "/" | slice: 0, 2 | join: "/" %}
+  {% for file in site.static_files %}
+    {% if file.path contains project_path %}
+      {% if file.extname == ".jpg" or file.extname == ".png" or file.extname == ".webp" or file.extname == ".jpeg" %}
+        <img src="{{ file.path }}" alt="">
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+<h2>Materials / Parts List</h2>
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Qty</th>
+    <th>Notes</th>
+  </tr>
+  {% for item in page.materials %}
+  <tr>
+    <td>{{ item.name }}</td>
+    <td>{{ item.qty }}</td>
+    <td>{{ item.notes }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h2>Related Projects</h2>
+<ul>
+  {% for r in page.related %}
+    <li><a href="{{ r.url }}">{{ r.title }}</a></li>
+  {% endfor %}
+</ul>
