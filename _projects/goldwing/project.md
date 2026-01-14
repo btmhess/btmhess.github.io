@@ -5,7 +5,7 @@ title: "Electric Goldwing"
 # Sorting metadata
 favorite_order: 1
 date: 2024-11
-status: active
+status: complete_in_use
 budget: 6000
 
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
@@ -21,15 +21,7 @@ result: >
 specifications: >
   Paragraph describing technical specs, dimensions, performance, etc.
 
-materials:
-  - name: Aluminum plate
-    qty: 1
-    notes: 6061, waterjet
-  - name: M3 screws
-    qty: 12
-    notes: Stainless
-
 related:
-  - title: "Project B"
-    url: /projects/project-b/
+  - title: "Project Template"
+    url: /projects/project-template/
 ---

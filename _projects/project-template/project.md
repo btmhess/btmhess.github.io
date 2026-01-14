@@ -1,6 +1,6 @@
 ---
 layout: project
-title: "Project A"
+title: "Project Template"
 
 # Sorting metadata
 favorite_order: 10
@@ -21,15 +21,7 @@ result: >
 specifications: >
   Paragraph describing technical specs, dimensions, performance, etc.
 
-materials:
-  - name: Aluminum plate
-    qty: 1
-    notes: 6061, waterjet
-  - name: M3 screws
-    qty: 12
-    notes: Stainless
-
 related:
-  - title: "Project B"
-    url: /projects/project-b/
+  - title: "Goldwing"
+    url: /projects/goldwing/
 ---

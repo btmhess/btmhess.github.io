@@ -1,3 +1,6 @@
+title: "Project Portfolio"
+markdown: kramdown
+
 collections:
   projects:
     output: true
