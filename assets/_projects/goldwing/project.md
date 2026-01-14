@@ -1,12 +1,12 @@
 ---
 layout: project
-title: "Project A"
+title: "Electric Goldwing"
 
 # Sorting metadata
-favorite_order: 10
+favorite_order: 1
 date: 2024-11
 status: active
-budget: 250
+budget: 6000
 
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
 

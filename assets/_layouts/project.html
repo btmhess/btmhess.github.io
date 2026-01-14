@@ -21,7 +21,7 @@ layout: default
   {% assign project_path = page.path | split: "/" | slice: 0, 2 | join: "/" %}
   {% for file in site.static_files %}
     {% if file.path contains project_path %}
-      {% if file.extname == ".jpg" or file.extname == ".png" or file.extname == ".webp" or file.extname == ".jpeg" %}
+      {% if file.extname == ".jpg" or file.extname == ".jpeg" or file.extname == ".png" or file.extname == ".webp" %}
         <img src="{{ file.path }}" alt="">
       {% endif %}
     {% endif %}
@@ -29,20 +29,10 @@ layout: default
 </div>
 
 <h2>Materials / Parts List</h2>
-<table>
-  <tr>
-    <th>Item</th>
-    <th>Qty</th>
-    <th>Notes</th>
-  </tr>
-  {% for item in page.materials %}
-  <tr>
-    <td>{{ item.name }}</td>
-    <td>{{ item.qty }}</td>
-    <td>{{ item.notes }}</td>
-  </tr>
-  {% endfor %}
-</table>
+
+<div id="materials-table">
+  <em>Loading materials list…</em>
+</div>
 
 <h2>Related Projects</h2>
 <ul>
@@ -50,3 +40,50 @@ layout: default
     <li><a href="{{ r.url }}">{{ r.title }}</a></li>
   {% endfor %}
 </ul>
+
+<script>
+(async function () {
+  const container = document.getElementById("materials-table");
+  const csvUrl = "{{ page.url }}materials.csv";
+
+  try {
+    const response = await fetch(csvUrl);
+    if (!response.ok) throw new Error("No materials.csv");
+
+    const text = await response.text();
+    const rows = text.trim().split("\n").map(r => r.split(","));
+
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+
+    // Header
+    const headerRow = document.createElement("tr");
+    rows[0].forEach(h => {
+      const th = document.createElement("th");
+      th.textContent = h.trim();
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+
+    // Body
+    rows.slice(1).forEach(row => {
+      const tr = document.createElement("tr");
+      row.forEach(cell => {
+        const td = document.createElement("td");
+        td.textContent = cell.trim();
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    container.innerHTML = "";
+    container.appendChild(table);
+  } catch (e) {
+    container.innerHTML = "<em>No materials list available.</em>";
+  }
+})();
+</script>
