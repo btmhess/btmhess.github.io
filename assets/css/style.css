@@ -30,7 +30,7 @@ a:hover {
 header nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; /* title stays right-aligned */
   align-items: center;
   background: #0055aa;
   color: white;
@@ -43,11 +43,16 @@ header nav a {
   color: white;
   font-weight: bold;
   margin-right: 1rem;
+  font-size: 1.5rem;    /* make text larger */
+  padding: 0.4rem 0.8rem; /* add some button-like padding */
+  border-radius: 4px;     /* optional, for nicer hover */
+  transition: all 0.15s ease;
 }
 
 header nav a:hover {
-  text-decoration: underline;
+  background: rgba(255,255,255,0.2); /* subtle hover highlight */
 }
+
 
 header h1 {
   font-size: 1.5rem;
