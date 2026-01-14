@@ -9,13 +9,13 @@ layout: default
   <title>{{ page.title }} | My Projects Portfolio</title>
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
+<body class="project-page">
 
 <header>
   <nav>
     <div>
       <a href="/">Home</a>
-      <a href="/index.html">Projects</a>
+  <!-- <a href="/index.html">Projects</a> -->
     </div>
     <h1>{{ page.title }}</h1>
   </nav>
@@ -30,14 +30,16 @@ layout: default
   </div>
 
   <!-- Project metadata -->
-  <div class="project-attributes">
+  <div>
+   <span><h2>{{ page.title }} |</h2></span>
     <span><strong>Date:</strong> {{ page.project_date }}</span> |
     <span><strong>Status:</strong> {{ page.status }}</span> |
     <span><strong>Budget:</strong> ${{ page.budget }}</span>
   </div>
   
-  <section class="project-content">
-    <h2><strong>Goal:</strong> {{ page.goal }}</h2>
+  <section>
+    <h2>Goal</h2>
+	<p>{{ page.goal }}</p>
     <h2>Requirements</h2>
     <p>{{ page.requirements }}</p>
     <h2>Result / Current Incarnation</h2>

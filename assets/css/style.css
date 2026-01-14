@@ -112,7 +112,6 @@ button.sort-btn:hover {
   box-shadow: 0 0 10px rgba(0,0,0,0.15);
 }
 
-
 .project-tile img.project-thumb {
   flex-shrink: 0;
   width: 150px;
@@ -135,36 +134,11 @@ button.sort-btn:hover {
 
 
 /* ===========================
-   Project Text
+   Project Pages
 =========================== */
-
-.project-attributes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;         /* space between spans */
-  font-size: 0.95rem;
-  margin-bottom: 1rem;  /* extra space below this line */
-}
-
-.project-attributes span {
-  white-space: nowrap;   /* keep each attribute together */
-}
-
-.project-content {
-  padding-top: 0.5rem;
-  padding-bottom: 1rem;
-  line-height: 1.6;        /* spacing between lines */
-}
-
-.project-content h2 {
-  margin-top: 1.25rem;
+body.project-page section h2 {
+  margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-}
-
-.project-content p {
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
 }
 
 
