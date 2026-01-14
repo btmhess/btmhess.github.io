@@ -1,15 +1,21 @@
-/* --- Global resets --- */
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+/* ===========================
+   Base styles
+=========================== */
+body, h1, h2, h3, p, ul {
   margin: 0;
   padding: 0;
-  background-color: #fafafa;
-  color: #222;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.5;
+  padding: 0.5rem;
+  background: #f9f9f9;
+  color: #333;
 }
 
 a {
-  color: #007acc;
+  color: #0055aa;
   text-decoration: none;
 }
 
@@ -17,109 +23,76 @@ a:hover {
   text-decoration: underline;
 }
 
-/* --- Header / Nav --- */
-header {
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #ddd;
-  padding: 1rem;
-}
-
+/* ===========================
+   Header & Navigation
+=========================== */
 header nav {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
-}
-
-header nav a {
-  margin-right: 1rem;
-  font-weight: bold;
-}
-
-header h1 {
-  margin: 0.5rem 0 0 0;
-  font-size: 1.5rem;
-}
-
-/* --- Main layout --- */
-main {
-  max-width: 960px;
-  margin: 1rem auto;
-  padding: 0 1rem;
-}
-
-/* --- Project Cards / Index --- */
-#projects-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-}
-
-.project-card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0.5rem;
-  background-color: #fff;
-  transition: box-shadow 0.2s;
-}
-
-.project-card:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.project-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-}
-
-/* --- Gallery --- */
-.gallery, #gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0.5rem;
+  align-items: center;
+  background: #0055aa;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   margin-bottom: 1rem;
 }
 
-.gallery img, #gallery img {
-  width: 100%;
-  height: auto;
+header nav a {
+  color: white;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+/* ===========================
+   Sort controls
+=========================== */
+#sort-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+#sort-controls strong {
+  flex-shrink: 0;
+}
+
+.sort-group {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+/* Buttons */
+button.sort-btn {
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
 }
 
-/* --- Tables --- */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
+button.sort-btn:hover {
+  background: #e0e0e0;
+  border-color: #999;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 0.4rem;
-  text-align: left;
-}
-
-th {
-  background-color: #eee;
-}
-
-/* --- Mobile-friendly adjustments --- */
-@media (max-width: 600px) {
-  header nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  #projects-list {
-    grid-template-columns: 1fr;
-  }
-  .gallery, #gallery {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* ===========================
+   Project Tiles
+=========================== */
 .project-tile {
   display: flex;
   align-items: flex-start;
@@ -132,18 +105,134 @@ th {
 }
 
 .project-tile:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
 }
 
 .project-tile img.project-thumb {
   flex-shrink: 0;
+  width: 150px;
+  height: auto;
+  margin-right: 1rem;
+  border-radius: 4px;
+  object-fit: cover;
 }
 
+/* Tile text */
 .project-tile h3 {
-  margin-top: 0;
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
 }
 
+.project-tile p {
+  margin: 0.15rem 0;
+  font-size: 0.95rem;
+}
+
+/* ===========================
+   Gallery
+=========================== */
+#gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#gallery img {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+
+#gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Lightbox overlay */
+#lightbox-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#lightbox-overlay img {
+  max-width: 90%;
+  max-height: 80%;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
+#lightbox-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#lightbox-controls button {
+  background: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.15s ease;
+}
+
+#lightbox-controls button:hover {
+  background: #e0e0e0;
+}
+
+/* ===========================
+   Tables
+=========================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid #aaa;
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+}
+
+th {
+  background: #eee;
+}
+
+/* ===========================
+   Banner Image
+=========================== */
+#banner img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* ===========================
+   Responsive adjustments
+=========================== */
 @media (max-width: 600px) {
+  header nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header h1 {
+    font-size: 1.25rem;
+  }
+
   .project-tile {
     flex-direction: column;
     align-items: flex-start;
@@ -151,6 +240,30 @@ th {
 
   .project-tile img.project-thumb {
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  #sort-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sort-group {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    font-size: 0.8rem;
+  }
+
+  #gallery {
+    justify-content: flex-start;
+  }
+
+  #gallery img {
+    width: 100px;
   }
 }

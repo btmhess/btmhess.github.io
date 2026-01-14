@@ -8,37 +8,6 @@ layout: default
   <meta charset="UTF-8">
   <title>{{ page.title }} | My Projects Portfolio</title>
   <link rel="stylesheet" href="/assets/css/style.css">
-  <style>
-    /* Lightbox styles */
-    #lightbox-overlay {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: rgba(0,0,0,0.9);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:1000;
-      flex-direction:column;
-    }
-    #lightbox-overlay img {
-      max-width:90%;
-      max-height:80%;
-      margin-bottom:1rem;
-      border-radius:6px;
-    }
-    #lightbox-controls {
-      display:flex;
-      gap:1rem;
-    }
-    #lightbox-controls button {
-      background:#fff;
-      border:none;
-      padding:0.5rem 1rem;
-      border-radius:4px;
-      cursor:pointer;
-    }
-  </style>
 </head>
 <body>
 
@@ -54,10 +23,10 @@ layout: default
 
 <main>
 
-  <!-- Banner image (manual thumbnail preferred) -->
-  <div id="banner" style="text-align:center; margin-bottom:1rem;">
-    <img id="banner-img" src="/assets/projects/{{ page.project_slug }}/thumbnail.png" 
-         alt="{{ page.title }} banner" style="max-width:100%; border-radius:4px;">
+  <!-- Banner image -->
+  <div id="banner">
+    <img src="/assets/projects/{{ page.project_slug }}/thumbnail.png" 
+         alt="{{ page.title }} banner">
   </div>
 
   <!-- Project metadata -->
@@ -71,19 +40,14 @@ layout: default
     <p>{{ page.specifications }}</p>
   </section>
 
-  <!-- Gallery (excluding thumbnail/banner) -->
+  <!-- Gallery -->
   <h2>Gallery</h2>
-  <div id="gallery" style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-    <em>Loading gallery…</em>
-  </div>
+  <div id="gallery"></div>
 
-  <!-- Materials table -->
+  <!-- Materials -->
   <h2>Materials / Parts List</h2>
-  <div id="materials-table">
-    <em>Loading materials list…</em>
-  </div>
+  <div id="materials-table"></div>
 
-  <!-- Related projects -->
   {% if page.related %}
     <h2>Related Projects</h2>
     <ul>
@@ -106,12 +70,11 @@ layout: default
 </div>
 
 <script>
-// --- Gallery loader ---
+// Gallery + lightbox
 (function() {
   const galleryContainer = document.getElementById("gallery");
   const projectSlug = "{{ page.project_slug }}";
   const folder = "/assets/projects/" + projectSlug + "/";
-
   const images = [
     {% assign project_folder = "assets/projects/" | append: page.project_slug | append: "/" %}
     {% assign project_images = site.static_files | where_exp: "f", "f.path contains project_folder" | sort: "path" %}
@@ -129,13 +92,11 @@ layout: default
     const img = document.createElement("img");
     img.src = folder + imgName;
     img.alt = imgName;
-    img.style.width = "150px";
-    img.style.cursor = "pointer";
     img.dataset.index = index;
     galleryContainer.appendChild(img);
   });
 
-  // --- Lightbox functionality ---
+  // Lightbox
   const overlay = document.getElementById("lightbox-overlay");
   const lightboxImg = document.getElementById("lightbox-img");
   const prevBtn = document.getElementById("prev-btn");
@@ -150,21 +111,10 @@ layout: default
     overlay.style.display = "flex";
   }
 
-  function closeLightbox() {
-    overlay.style.display = "none";
-  }
+  function closeLightbox() { overlay.style.display = "none"; }
+  function showNext() { currentIndex = (currentIndex+1)%galleryImages.length; lightboxImg.src = folder + galleryImages[currentIndex]; }
+  function showPrev() { currentIndex = (currentIndex-1+galleryImages.length)%galleryImages.length; lightboxImg.src = folder + galleryImages[currentIndex]; }
 
-  function showNext() {
-    currentIndex = (currentIndex + 1) % galleryImages.length;
-    lightboxImg.src = folder + galleryImages[currentIndex];
-  }
-
-  function showPrev() {
-    currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-    lightboxImg.src = folder + galleryImages[currentIndex];
-  }
-
-  // Attach click events
   galleryContainer.querySelectorAll("img").forEach(img => {
     img.addEventListener("click", () => openLightbox(parseInt(img.dataset.index)));
   });
@@ -176,8 +126,8 @@ layout: default
 })();
 </script>
 
-<!-- Materials table loader (unchanged) -->
 <script>
+// Materials CSV loader
 (async function () {
   const container = document.getElementById("materials-table");
   const projectSlug = "{{ page.project_slug }}";
@@ -195,29 +145,20 @@ layout: default
     const tbody = document.createElement("tbody");
 
     const headerRow = document.createElement("tr");
-    rows[0].forEach(h => {
-      const th = document.createElement("th");
-      th.textContent = h.trim();
-      headerRow.appendChild(th);
-    });
+    rows[0].forEach(h => { const th = document.createElement("th"); th.textContent = h.trim(); headerRow.appendChild(th); });
     thead.appendChild(headerRow);
 
     rows.slice(1).forEach(row => {
       const tr = document.createElement("tr");
-      row.forEach(cell => {
-        const td = document.createElement("td");
-        td.textContent = cell.trim();
-        tr.appendChild(td);
-      });
+      row.forEach(cell => { const td = document.createElement("td"); td.textContent = cell.trim(); tr.appendChild(td); });
       tbody.appendChild(tr);
     });
 
     table.appendChild(thead);
     table.appendChild(tbody);
-
     container.innerHTML = "";
     container.appendChild(table);
-  } catch (err) {
+  } catch(err) {
     container.innerHTML = "<em>No materials list available.</em>";
     console.warn("Materials table load failed:", err);
   }
