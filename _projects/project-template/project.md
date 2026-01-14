@@ -4,7 +4,7 @@ title: "Project Template"
 
 # Sorting metadata
 favorite_order: 10
-date: 2024-11
+project_date: 2024-11
 status: active
 budget: 250
 

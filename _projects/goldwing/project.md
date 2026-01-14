@@ -4,7 +4,7 @@ title: "Electric Goldwing"
 
 # Sorting metadata
 favorite_order: 1
-date: 2024-11
+project_date: 2023-03
 status: complete_in_use
 budget: 6000
 

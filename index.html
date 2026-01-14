@@ -24,7 +24,7 @@ layout: default
     {% for project in site.projects %}
     <tr
       data-favorite="{{ project.favorite_order }}"
-      data-date="{{ project.date }}"
+      data-date="{{ project.project_date }}"
       data-status="{{ project.status }}"
       data-budget="{{ project.budget }}"
     >
@@ -33,7 +33,7 @@ layout: default
         <small>{{ project.goal }}</small>
       </td>
       <td>{{ project.status }}</td>
-      <td>{{ project.date }}</td>
+      <td>{{ project.project_date }}</td>
       <td>${{ project.budget }}</td>
     </tr>
     {% endfor %}
