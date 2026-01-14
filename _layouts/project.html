@@ -18,7 +18,7 @@ layout: default
 <h2>Gallery</h2>
 
 <div class="gallery">
-  {% assign project_dir = "/projects/" | append: page.project_slug | append: "/" %}
+  {% assign project_dir = "/_projects/" | append: page.project_slug | append: "/" %}
 
   {% for file in site.static_files %}
     {% if file.path contains project_dir %}
