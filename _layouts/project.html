@@ -9,19 +9,18 @@ layout: default
   <title>{{ page.title }} | My Projects Portfolio</title>
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body class="project-page">
+<body>
 
 <header>
   <nav>
     <div>
-      <a href="/">Home</a>
-  <!-- <a href="/index.html">Projects</a> -->
+      <a href="/"><h1>Home</h1></a>
     </div>
     <h1>{{ page.title }}</h1>
   </nav>
 </header>
 
-<main>
+<main class="project-page">
 
   <!-- Banner image -->
   <div id="banner">
@@ -31,7 +30,7 @@ layout: default
 
   <!-- Project metadata -->
   <div>
-   <span><h2>{{ page.title }} |</h2></span>
+   <span><h2>{{ page.title }}</h2></span>
     <span><strong>Date:</strong> {{ page.project_date }}</span> |
     <span><strong>Status:</strong> {{ page.status }}</span> |
     <span><strong>Budget:</strong> ${{ page.budget }}</span>

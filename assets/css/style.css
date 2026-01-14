@@ -136,7 +136,7 @@ button.sort-btn:hover {
 /* ===========================
    Project Pages
 =========================== */
-body.project-page h2 {
+main.project-page h2 {
   margin-top: 1.5rem;
 }
 
