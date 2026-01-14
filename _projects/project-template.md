@@ -1,12 +1,13 @@
 ---
 layout: project
-title: "Electric Goldwing"
+title: "Project Template"
+project_slug: project-template
 
 # Sorting metadata
-favorite_order: 1
-project_date: 2023-03
-status: complete_in_use
-budget: 6000
+favorite_order: 10
+project_date: 2024-11
+status: active
+budget: 250
 
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
 
@@ -22,6 +23,6 @@ specifications: >
   Paragraph describing technical specs, dimensions, performance, etc.
 
 related:
-  - title: "Project Template"
-    url: /projects/project-template/project
+  - title: "Goldwing"
+    url: /projects/goldwing
 ---

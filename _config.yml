@@ -1,7 +1,17 @@
-title: "Project Portfolio"
-markdown: kramdown
+title: My Projects
+baseurl: ""
+url: "https://btmhess.github.io"
+
+theme: jekyll-theme-primer
 
 collections:
   projects:
     output: true
-    permalink: /projects/:path/
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project

@@ -2,42 +2,146 @@
 layout: default
 ---
 
-<h1>Ben H — Projects</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Projects Portfolio</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
 
-<nav>
-  <a href="#" onclick="sortProjects('favorite')">Favorites</a> |
-  <a href="#" onclick="sortProjects('date')">Date</a> |
-  <a href="#" onclick="sortProjects('status')">Status</a> |
-  <a href="#" onclick="sortProjects('budget')">Budget</a>
-</nav>
+<header>
+  <h1>My Projects Portfolio</h1>
+  <nav>
+    <a href="/">Home</a>
+    <!-- Add more nav links if needed -->
+  </nav>
+</header>
 
-<table id="project-table">
-  <thead>
-    <tr>
-      <th>Project</th>
-      <th>Status</th>
-      <th>Date</th>
-      <th>Budget</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for project in site.projects %}
-    <tr
-      data-favorite="{{ project.favorite_order }}"
-      data-date="{{ project.project_date }}"
-      data-status="{{ project.status }}"
-      data-budget="{{ project.budget }}"
-    >
-      <td>
-        <a href="{{ project.url }}">{{ project.title }}</a><br>
-        <small>{{ project.goal }}</small>
-      </td>
-      <td>{{ project.status }}</td>
-      <td>{{ project.project_date }}</td>
-      <td>${{ project.budget }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<main>
+  <section>
+    <h2>Projects</h2>
+
+    <!-- Sorting controls -->
+    <div id="sort-controls">
+      <label>Sort by: 
+        <select id="sort-select">
+          <option value="favorite_order">Favorites</option>
+          <option value="project_date">Date</option>
+          <option value="status">Status</option>
+          <option value="budget">Budget</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Project list -->
+    <div id="projects-list">
+      {% assign projects = site.projects %}
+      {% for project in projects %}
+        {% assign project_folder = "assets/projects/" | append: project.project_slug | append: "/" %}
+
+        {% comment %}
+        Attempt to pick the first image in the project folder as thumbnail
+        {% endcomment %}
+        {% assign project_images = site.static_files | where_exp: "f", "f.path contains project_folder" %}
+        {% assign project_images = project_images | sort: "path" %}
+        {% if project_images.size > 0 %}
+          {% assign thumbnail = project_images[0].url %}
+        {% else %}
+          {% assign thumbnail = "/assets/img/default-thumbnail.png" %}
+        {% endif %}
+
+        <div class="project-card" 
+             data-favorite_order="{{ project.favorite_order }}" 
+             data-project_date="{{ project.project_date }}" 
+             data-status="{{ project.status }}" 
+             data-budget="{{ project.budget }}">
+          <a href="{{ project.url }}">
+            <img src="{{ thumbnail }}" alt="{{ project.title }} thumbnail">
+            <h3>{{ project.title }}</h3>
+          </a>
+          <p>{{ project.goal }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
 
 <script src="/assets/js/sort.js"></script>
+
+<style>
+/* Quick grid layout for project cards */
+#projects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background-color: #fafafa;
+  transition: box-shadow 0.2s;
+}
+
+.project-card:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.project-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+#sort-controls {
+  margin-bottom: 1rem;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const select = document.getElementById("sort-select");
+  const container = document.getElementById("projects-list");
+
+  function sortProjects(key) {
+    const cards = Array.from(container.querySelectorAll(".project-card"));
+
+    cards.sort((a, b) => {
+      let valA = a.dataset[key];
+      let valB = b.dataset[key];
+
+      // For dates: convert YYYY-MM to comparable numbers
+      if (key === "project_date") {
+        valA = valA.replace("-", "");
+        valB = valB.replace("-", "");
+      }
+
+      // For numeric fields
+      if (!isNaN(valA) && !isNaN(valB)) {
+        return parseFloat(valA) - parseFloat(valB);
+      }
+
+      // For strings (status)
+      return valA.localeCompare(valB);
+    });
+
+    // Re-append in sorted order
+    cards.forEach(card => container.appendChild(card));
+  }
+
+  // Initial sort by favorite_order
+  sortProjects("favorite_order");
+
+  // Change event
+  select.addEventListener("change", (e) => {
+    sortProjects(e.target.value);
+  });
+});
+</script>
+
+</body>
+</html>
