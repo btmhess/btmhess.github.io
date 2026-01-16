@@ -48,7 +48,7 @@ layout: default
     <p>{{ page.specifications }}</p>
   </section>
   
-  {% if page.related %}
+  {% if page.related_projects %}
     <h2>Related Projects</h2>
       {% for slug in page.related_projects %}
       {% assign related = site.projects | where: "project_slug", slug | first %}
