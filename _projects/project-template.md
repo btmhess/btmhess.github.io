@@ -4,12 +4,15 @@ title: "Project Template"
 project_slug: project-template
 
 # Sorting metadata
-favorite_order: 10
+favorite_order: 100000
 project_date: 2024-11
+# status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
 status: active
 budget: 250
+# organization options: Personal, FSAE, Sandia
+organization: Personal
 
-# status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
+
 
 goal: "One-sentence description of the project goal."
 
@@ -22,7 +25,7 @@ result: >
 specifications: >
   Paragraph describing technical specs, dimensions, performance, etc.
 
-related:
-  - title: "Goldwing"
-    url: /projects/goldwing
+related_projects:
+  - goldwing
+  - another-project
 ---

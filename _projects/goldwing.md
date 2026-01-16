@@ -11,7 +11,7 @@ budget: 6000
 
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
 
-goal: "One-sentence description of the project goal."
+goal: "Electric conversion of a 1985 Honda Goldwing, with custon drivetrain and tractive battery."
 
 requirements: >
   Paragraph describing requirements, constraints, and design intent.
@@ -22,7 +22,7 @@ result: >
 specifications: >
   Paragraph describing technical specs, dimensions, performance, etc.
 
-related:
-  - title: "Project Template"
-    url: /projects/project-template
+related_projects:
+  - project-template
+  - another-project
 ---

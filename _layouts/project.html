@@ -47,6 +47,16 @@ layout: default
     <h2>Specifications</h2>
     <p>{{ page.specifications }}</p>
   </section>
+  
+  {% if page.related %}
+    <h2>Related Projects</h2>
+      {% for slug in page.related_projects %}
+      {% assign related = site.projects | where: "project_slug", slug | first %}
+      {% if related %}
+        <a href="{{ related.url }}">{{ related.title }}</a>{% unless forloop.last %}, {% endunless %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 
   <!-- Gallery -->
   <h2>Gallery</h2>
@@ -55,16 +65,7 @@ layout: default
   <!-- Materials -->
   <h2>Materials / Parts List</h2>
   <div id="materials-table"></div>
-
-  {% if page.related %}
-    <h2>Related Projects</h2>
-    <ul>
-      {% for r in page.related %}
-        <li><a href="{{ r.url }}">{{ r.title }}</a></li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
+  
 </main>
 
 <!-- Lightbox overlay -->
