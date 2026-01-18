@@ -23,7 +23,7 @@ result: >
   This motorcycle is still my daily transport; I have put around 6000 miles on it commuting to school and back. Once I got all the bugs worked out, it has been very reliable with almost no maintenance.
   So far I have replaced a couple drive belts and refreshed the motor bearings. There has been no meaningful battery degradation.
 
-specifications: >
+specifications: "
   Overview:
 	- 60mi range, 70mph top speed
 	- 1200W charger: charges from standard outlet in 6 hours
@@ -48,6 +48,7 @@ specifications: >
 	- $1001 safety equipment
 	- $329 tools
 	- $805 unused/broken/obsolete parts
+	"
 
 related_projects:
   - goldwing-battery
