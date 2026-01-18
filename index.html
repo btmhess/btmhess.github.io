@@ -38,6 +38,11 @@ layout: default
         <button class="sort-btn" data-key="project_date" data-order="asc">↑</button>
         <button class="sort-btn" data-key="project_date" data-order="desc">↓</button>
       </div>
+	  <div class="sort-group">
+        <span>Duration:</span>
+        <button class="sort-btn" data-key="duration" data-order="asc">↑</button>
+        <button class="sort-btn" data-key="duration" data-order="desc">↓</button>
+      </div>
       <div class="sort-group">
         <span>Status:</span>
         <button class="sort-btn" data-key="status" data-order="asc">↑</button>
@@ -48,6 +53,7 @@ layout: default
         <button class="sort-btn" data-key="budget" data-order="asc">↑</button>
         <button class="sort-btn" data-key="budget" data-order="desc">↓</button>
       </div>
+	  
     </div>
 
     <!-- Project list -->
@@ -56,7 +62,8 @@ layout: default
       {% for project in projects %}
         <div class="project-tile" data-url="{{ project.url }}"
 			 data-favorite_order="{{ project.favorite_order }}" 
-			 data-project_date="{{ project.project_date }}" 
+			 data-project_date="{{ project.project_date }}"
+			 data-duration="{{ project.duration }}" 
 			 data-status="{{ project.status }}" 
 			 data-budget="{{ project.budget }}" 
 			 data-project_slug="{{ project.project_slug }}">
@@ -69,6 +76,7 @@ layout: default
 			<a href="{{ project.url }}"><h3>{{ project.title }}</h3></a>
 			<p><strong>Goal / Purpose:</strong> {{ project.goal }}</p>
 			<p><strong>Date:</strong> {{ project.project_date }}</p>
+			<p><strong>Duration:</strong> {{ project.project_date }} weeks</p>
 			<p><strong>Status:</strong> {{ project.status }}</p>
 			<p><strong>Budget:</strong> ${{ project.budget }}</p>
 		  </div>

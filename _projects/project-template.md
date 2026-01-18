@@ -6,6 +6,7 @@ project_slug: project-template
 # Sorting metadata
 favorite_order: 100000
 project_date: 2024-11
+duration: 1
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
 status: active
 budget: 250
