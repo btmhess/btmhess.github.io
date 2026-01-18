@@ -79,63 +79,80 @@ layout: default
   </div>
 </div>
 
+{% comment %}
+  Generate the media array from static files
+{% endcomment %}
+{% assign project_base = "assets/projects/" | append: page.project_slug | append: "/" %}
+{% assign media_files = "" | split: "" %}
+
+{% for f in site.static_files %}
+  {% assign path_lower = f.path | downcase %}
+  {% if path_lower contains project_base and path_lower contains "/thumbs/" == false %}
+    {% assign ext = f.extname | downcase %}
+    {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" or ext == ".mp4" or ext == ".webm" %}
+      {% capture media_item %}
+        {
+          name: "{{ f.name }}",
+          type: "{% if ext == '.mp4' or ext == '.webm' %}video{% else %}image{% endif %}"
+        }
+      {% endcapture %}
+      {% assign media_files = media_files | push: media_item %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
 <script>
-(function () {
-  const gallery = document.getElementById("gallery");
-  const slug = "{{ page.project_slug }}";
-  const basePath = "/assets/projects/" + slug + "/";
-  const thumbPath = basePath + "thumbs/";
-
-  const media = [
-    {% assign base = "assets/projects/" | append: page.project_slug | append: "/" %}
-    {% for f in site.static_files %}
-      {% if f.path contains base and f.path contains "/thumbs/" == false %}
-        {% assign ext = f.extname | downcase %}
-        {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" or ext == ".mp4" or ext == "m4v" or ext == "mkv" %}
-          {
-            name: "{{ f.name }}",
-            type: "{% if ext == ".mp4" or ext == ".m4v" or ext == ".mkv"%}video{% else %}image{% endif %}"
-          },
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-  ];
-
-  if (!media.length) return;
-
-  let current = 0;
-
-  media.forEach((item, index) => {
-    const thumb = document.createElement("img");
-    thumb.loading = "lazy";
-    thumb.className = "gallery-thumb";
-    thumb.dataset.index = index;
-
-    const baseName = item.name.replace(/\.[^/.]+$/, "");
-    thumb.src = thumbPath + baseName + ".jpg";
-    thumb.alt = item.name;
-
-    gallery.appendChild(thumb);
-  });
-
+(function() {
+  const galleryContainer = document.getElementById("gallery");
   const overlay = document.getElementById("lightbox-overlay");
   const lightboxImg = document.getElementById("lightbox-img");
-
   const videoEl = document.createElement("video");
+  const basePath = "/assets/projects/{{ page.project_slug }}/";
+  const thumbPath = basePath + "thumbs/";
+
+  // Configure the persistent video element
   videoEl.controls = true;
+  videoEl.playsInline = true;
   videoEl.style.maxWidth = "90vw";
   videoEl.style.maxHeight = "80vh";
   videoEl.style.display = "none";
   overlay.insertBefore(videoEl, overlay.firstChild);
 
+  const media = [{{ media_files | join: "," }}];
+
+  if (!media.length) return;
+
+  let currentIndex = 0;
+
+  // Helper to preload images
+  function preloadImage(url) {
+    const img = new Image();
+    img.src = url;
+  }
+
+  // Create gallery thumbnails
+  media.forEach((item, index) => {
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.className = "gallery-thumb";
+    img.dataset.index = index;
+
+    // Thumbnails always .jpg in /thumbs/
+    const baseName = item.name.replace(/\.[^/.]+$/, "");
+    img.src = thumbPath + baseName + ".jpg";
+    img.alt = item.name;
+    galleryContainer.appendChild(img);
+  });
+
+  // Open lightbox
   function open(index) {
-    current = index;
+    currentIndex = index;
     overlay.style.display = "flex";
 
-    const item = media[current];
-    const src = basePath + item.name;
+    const item = media[currentIndex];
+    const fullSrc = basePath + item.name;
 
-    // reset elements
+    // Reset
     lightboxImg.style.display = "none";
     lightboxImg.src = "";
     videoEl.pause();
@@ -143,49 +160,38 @@ layout: default
     videoEl.style.display = "none";
 
     if (item.type === "image") {
-      lightboxImg.src = src;
+      lightboxImg.src = fullSrc;
       lightboxImg.style.display = "block";
 
-      // ===== Preload neighbors =====
-      const nextIndex = (current + 1) % media.length;
-      const prevIndex = (current - 1 + media.length) % media.length;
-
+      // Preload neighbors
+      const nextIndex = (currentIndex + 1) % media.length;
+      const prevIndex = (currentIndex - 1 + media.length) % media.length;
       [nextIndex, prevIndex].forEach(i => {
-        if (media[i].type === "image") {
-          preloadImage(basePath + media[i].name);
-        }
+        if (media[i].type === "image") preloadImage(basePath + media[i].name);
       });
 
-    } else {
-      videoEl.src = src;
+    } else if (item.type === "video") {
+      videoEl.src = fullSrc;
       videoEl.style.display = "block";
       videoEl.play();
-      // optional: preload video poster for neighbors
     }
   }
-
 
   function close() {
     overlay.style.display = "none";
-    lightboxImg.src = "";
     lightboxImg.style.display = "none";
+    lightboxImg.src = "";
     videoEl.pause();
     videoEl.removeAttribute("src");
-    videoEl.load();
     videoEl.style.display = "none";
   }
 
-  function next() { open((current + 1) % media.length); }
-  function prev() { open((current - 1 + media.length) % media.length); }
-  function preloadImage(url) {
-    const img = new Image();
-    img.src = url; // browser fetches and caches
-  }
+  function next() { open((currentIndex + 1) % media.length); }
+  function prev() { open((currentIndex - 1 + media.length) % media.length); }
 
-  gallery.addEventListener("click", e => {
-    if (e.target.tagName === "IMG") {
-      open(parseInt(e.target.dataset.index));
-    }
+  // Event listeners
+  galleryContainer.addEventListener("click", e => {
+    if (e.target.tagName === "IMG") open(parseInt(e.target.dataset.index));
   });
 
   document.getElementById("next-btn").onclick = next;
@@ -197,7 +203,6 @@ layout: default
   });
 })();
 </script>
-
 
 
 <script>
