@@ -91,10 +91,10 @@ layout: default
     {% for f in site.static_files %}
       {% if f.path contains base and f.path contains "/thumbs/" == false %}
         {% assign ext = f.extname | downcase %}
-        {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" or ext == ".mp4" or ext == ".webm" %}
+        {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" or ext == ".mp4" or ext == "m4v" or ext == "mkv" %}
           {
             name: "{{ f.name }}",
-            type: "{% if ext == ".mp4" or ext == ".webm" %}video{% else %}image{% endif %}"
+            type: "{% if ext == ".mp4" or ext == ".m4v" or ext == ".mkv"%}video{% else %}image{% endif %}"
           },
         {% endif %}
       {% endif %}
@@ -135,22 +135,35 @@ layout: default
     const item = media[current];
     const src = basePath + item.name;
 
-    // Reset both
+    // reset elements
     lightboxImg.style.display = "none";
     lightboxImg.src = "";
     videoEl.pause();
     videoEl.removeAttribute("src");
-    videoEl.load();
+    videoEl.style.display = "none";
 
     if (item.type === "image") {
       lightboxImg.src = src;
       lightboxImg.style.display = "block";
+
+      // ===== Preload neighbors =====
+      const nextIndex = (current + 1) % media.length;
+      const prevIndex = (current - 1 + media.length) % media.length;
+
+      [nextIndex, prevIndex].forEach(i => {
+        if (media[i].type === "image") {
+          preloadImage(basePath + media[i].name);
+        }
+      });
+
     } else {
       videoEl.src = src;
       videoEl.style.display = "block";
       videoEl.play();
+      // optional: preload video poster for neighbors
     }
   }
+
 
   function close() {
     overlay.style.display = "none";
@@ -164,6 +177,10 @@ layout: default
 
   function next() { open((current + 1) % media.length); }
   function prev() { open((current - 1 + media.length) % media.length); }
+  function preloadImage(url) {
+    const img = new Image();
+    img.src = url; // browser fetches and caches
+  }
 
   gallery.addEventListener("click", e => {
     if (e.target.tagName === "IMG") {
