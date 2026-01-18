@@ -39,14 +39,14 @@ layout: default
   </div>
   
   <section>
-    <h2>Goal</h2>
 	<p>{{ page.goal }}</p>
+    <h2>Goal</h2>
     <h2>Requirements</h2>
     <p>{{ page.requirements }}</p>
     <h2>Result / Current Incarnation</h2>
-    <p>{{ page.result }}</p>
+    <blockquote>{{ page.result }}</blockquote>
     <h2>Specifications</h2>
-    <p>{{ page.specifications }}</p>
+    <div>{{ page.specifications }}</div>
   </section>
   
   {% if page.related_projects %}
@@ -121,7 +121,12 @@ layout: default
   const overlay = document.getElementById("lightbox-overlay");
   const lightboxImg = document.getElementById("lightbox-img");
 
-  let videoEl = null;
+  const videoEl = document.createElement("video");
+  videoEl.controls = true;
+  videoEl.style.maxWidth = "90vw";
+  videoEl.style.maxHeight = "80vh";
+  videoEl.style.display = "none";
+  overlay.insertBefore(videoEl, overlay.firstChild);
 
   function open(index) {
     current = index;
@@ -130,33 +135,31 @@ layout: default
     const item = media[current];
     const src = basePath + item.name;
 
+    // Reset both
+    lightboxImg.style.display = "none";
+    lightboxImg.src = "";
+    videoEl.pause();
+    videoEl.removeAttribute("src");
+    videoEl.load();
+
     if (item.type === "image") {
-      if (videoEl) {
-        videoEl.remove();
-        videoEl = null;
-      }
-      lightboxImg.style.display = "block";
       lightboxImg.src = src;
+      lightboxImg.style.display = "block";
     } else {
-      lightboxImg.style.display = "none";
-      videoEl = document.createElement("video");
       videoEl.src = src;
-      videoEl.controls = true;
-      videoEl.autoplay = true;
-      videoEl.style.maxWidth = "90vw";
-      videoEl.style.maxHeight = "80vh";
-      overlay.insertBefore(videoEl, overlay.firstChild);
+      videoEl.style.display = "block";
+      videoEl.play();
     }
   }
 
   function close() {
     overlay.style.display = "none";
     lightboxImg.src = "";
-    if (videoEl) {
-      videoEl.pause();
-      videoEl.remove();
-      videoEl = null;
-    }
+    lightboxImg.style.display = "none";
+    videoEl.pause();
+    videoEl.removeAttribute("src");
+    videoEl.load();
+    videoEl.style.display = "none";
   }
 
   function next() { open((current + 1) % media.length); }
