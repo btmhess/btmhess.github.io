@@ -39,8 +39,8 @@ layout: default
   </div>
   
   <section>
-	<p>{{ page.goal }}</p>
     <h2>Goal</h2>
+	<p>{{ page.goal }}</p>
     <h2>Requirements</h2>
     <p>{{ page.requirements }}</p>
     <h2>Result / Current Incarnation</h2>
@@ -87,7 +87,7 @@ layout: default
 
 {% for f in site.static_files %}
   {% assign path_lower = f.path | downcase %}
-  {% if path_lower contains project_base and path_lower contains "/thumbs/" == false %}
+  {% if path_lower contains project_base and (path_lower contains "/thumbs/" == false) %}
     {% assign ext = f.extname | downcase %}
     {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" or ext == ".mp4" or ext == ".webm" %}
       {% capture media_item %}
@@ -106,11 +106,9 @@ layout: default
   const galleryContainer = document.getElementById("gallery");
   const overlay = document.getElementById("lightbox-overlay");
   const lightboxImg = document.getElementById("lightbox-img");
-  const videoEl = document.createElement("video");
-  const basePath = "/assets/projects/{{ page.project_slug }}/";
-  const thumbPath = basePath + "thumbs/";
 
-  // Configure the persistent video element
+  // Persistent video element
+  const videoEl = document.createElement("video");
   videoEl.controls = true;
   videoEl.playsInline = true;
   videoEl.style.maxWidth = "90vw";
@@ -118,19 +116,23 @@ layout: default
   videoEl.style.display = "none";
   overlay.insertBefore(videoEl, overlay.firstChild);
 
+  const basePath = "/assets/projects/{{ page.project_slug }}/";
+  const thumbPath = basePath + "thumbs/";
+
+  // Liquid-generated array of media objects
   const media = [{{ media_files | join: "," }}];
 
   if (!media.length) return;
 
   let currentIndex = 0;
 
-  // Helper to preload images
+  // Helper to preload images (for faster next/prev navigation)
   function preloadImage(url) {
     const img = new Image();
     img.src = url;
   }
 
-  // Create gallery thumbnails
+  // Build gallery thumbnails
   media.forEach((item, index) => {
     const img = document.createElement("img");
     img.loading = "lazy";
@@ -201,8 +203,10 @@ layout: default
   overlay.addEventListener("click", e => {
     if (e.target === overlay) close();
   });
+
 })();
 </script>
+
 
 
 <script>
