@@ -79,6 +79,12 @@ layout: default
   </div>
 </div>
 
+{% comment %}
+  Generate the media array from static files
+{% endcomment %}
+{% assign project_base = "assets/projects/" | append: page.project_slug | append: "/" %}
+{% assign media_files = "" | split: "" %}
+
 {% for f in site.static_files %}
   {% assign path_lower = f.path | downcase %}
   {% if path_lower contains project_base %}
