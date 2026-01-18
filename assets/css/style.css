@@ -157,7 +157,7 @@ body.project-page h2 {
 }
 
 #gallery img {
-  max-height: 100px;
+  max-height: 200px;
   height: auto;
   width: auto;
   object-fit: contain;
@@ -167,6 +167,19 @@ body.project-page h2 {
 
 #gallery img:hover {
   transform: scale(1.05);
+}
+
+.gallery-thumb {
+  max-height: 200px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#lightbox-overlay video {
+  background: black;
 }
 
 /* Lightbox overlay */

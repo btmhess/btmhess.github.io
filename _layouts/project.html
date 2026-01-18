@@ -25,7 +25,7 @@ layout: default
 
   <!-- Banner image -->
   <div id="banner">
-    <img src="/assets/projects/{{ page.project_slug }}/thumbnail.png" 
+    <img src="/assets/projects/{{ page.project_slug }}/thumbnail.jpg" 
          alt="{{ page.title }} banner">
   </div>
 
@@ -71,7 +71,7 @@ layout: default
 
 <!-- Lightbox overlay -->
 <div id="lightbox-overlay">
-  <img id="lightbox-img" src="" alt="Gallery image">
+  <img id="lightbox-img" src="" alt="">
   <div id="lightbox-controls">
     <button id="prev-btn">&larr; Prev</button>
     <button id="next-btn">Next &rarr;</button>
@@ -80,61 +80,116 @@ layout: default
 </div>
 
 <script>
-// Gallery + lightbox
-(function() {
-  const galleryContainer = document.getElementById("gallery");
-  const projectSlug = "{{ page.project_slug }}";
-  const folder = "/assets/projects/" + projectSlug + "/";
-  const images = [
-    {% assign project_folder = "assets/projects/" | append: page.project_slug | append: "/" %}
-    {% assign project_images = site.static_files | where_exp: "f", "f.path contains project_folder" | sort: "path" %}
-    {% for file in project_images %}
-      {% if file.extname == ".jpg" or file.extname == ".jpeg" or file.extname == ".png" or file.extname == ".webp" %}
-        "{{ file.name }}"{% unless forloop.last %},{% endunless %}
+(function () {
+  const gallery = document.getElementById("gallery");
+  const slug = "{{ page.project_slug }}";
+
+  const basePath = "/assets/projects/" + slug + "/";
+  const thumbPath = basePath + "thumbs/";
+
+  const imageExt = [".jpg", ".jpeg", ".png", ".webp"];
+  const videoExt = [".mp4", ".webm"];
+
+  const media = [
+    {% assign base = "assets/projects/" | append: page.project_slug | append: "/" %}
+    {% for f in site.static_files %}
+      {% if f.path contains base %}
+        {% assign ext = f.extname | downcase %}
+        {% if imageExt contains ext or videoExt contains ext %}
+          {% unless f.path contains "/thumbs/" %}
+            {
+              name: "{{ f.name }}",
+              type: "{% if imageExt contains ext %}image{% else %}video{% endif %}"
+            }{% unless forloop.last %},{% endunless %}
+          {% endunless %}
+        {% endif %}
       {% endif %}
     {% endfor %}
   ];
 
-  const galleryImages = images.filter(name => name !== "thumbnail.png");
-  galleryContainer.innerHTML = "";
+  let current = 0;
 
-  galleryImages.forEach((imgName, index) => {
-    const img = document.createElement("img");
-    img.src = folder + imgName;
-    img.alt = imgName;
-    img.dataset.index = index;
-    galleryContainer.appendChild(img);
+  media.forEach((item, index) => {
+    const thumb = document.createElement("img");
+    thumb.loading = "lazy";
+    thumb.className = "gallery-thumb";
+    thumb.dataset.index = index;
+
+    // Thumbnail filename logic
+    const baseName = item.name.replace(/\.[^/.]+$/, "");
+    thumb.src = thumbPath + baseName + ".jpg";
+    thumb.alt = item.name;
+
+    gallery.appendChild(thumb);
   });
 
-  // Lightbox
   const overlay = document.getElementById("lightbox-overlay");
   const lightboxImg = document.getElementById("lightbox-img");
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-  const closeBtn = document.getElementById("close-btn");
 
-  let currentIndex = 0;
+  let videoEl = null;
 
-  function openLightbox(index) {
-    currentIndex = index;
-    lightboxImg.src = folder + galleryImages[currentIndex];
+  function open(index) {
+    current = index;
     overlay.style.display = "flex";
+
+    const item = media[current];
+    const src = basePath + item.name;
+
+    if (item.type === "image") {
+      if (videoEl) {
+        videoEl.remove();
+        videoEl = null;
+      }
+      lightboxImg.style.display = "block";
+      lightboxImg.src = src;
+    } else {
+      lightboxImg.style.display = "none";
+      if (!videoEl) {
+        videoEl = document.createElement("video");
+        videoEl.controls = true;
+        videoEl.style.maxWidth = "95vw";
+        videoEl.style.maxHeight = "90vh";
+        overlay.insertBefore(videoEl, overlay.firstChild);
+      }
+      videoEl.src = src;
+      videoEl.play();
+    }
   }
 
-  function closeLightbox() { overlay.style.display = "none"; }
-  function showNext() { currentIndex = (currentIndex+1)%galleryImages.length; lightboxImg.src = folder + galleryImages[currentIndex]; }
-  function showPrev() { currentIndex = (currentIndex-1+galleryImages.length)%galleryImages.length; lightboxImg.src = folder + galleryImages[currentIndex]; }
+  function close() {
+    overlay.style.display = "none";
+    lightboxImg.src = "";
+    if (videoEl) {
+      videoEl.pause();
+      videoEl.remove();
+      videoEl = null;
+    }
+  }
 
-  galleryContainer.querySelectorAll("img").forEach(img => {
-    img.addEventListener("click", () => openLightbox(parseInt(img.dataset.index)));
+  function next() {
+    open((current + 1) % media.length);
+  }
+
+  function prev() {
+    open((current - 1 + media.length) % media.length);
+  }
+
+  gallery.addEventListener("click", e => {
+    if (e.target.tagName === "IMG") {
+      open(parseInt(e.target.dataset.index));
+    }
   });
 
-  prevBtn.addEventListener("click", showPrev);
-  nextBtn.addEventListener("click", showNext);
-  closeBtn.addEventListener("click", closeLightbox);
-  overlay.addEventListener("click", e => { if(e.target===overlay) closeLightbox(); });
+  document.getElementById("next-btn").onclick = next;
+  document.getElementById("prev-btn").onclick = prev;
+  document.getElementById("close-btn").onclick = close;
+
+  overlay.addEventListener("click", e => {
+    if (e.target === overlay) close();
+  });
 })();
 </script>
+
 
 <script>
 // Materials CSV loader
