@@ -79,25 +79,21 @@ layout: default
   </div>
 </div>
 
-{% comment %}
-  Generate the media array from static files
-{% endcomment %}
-{% assign project_base = "assets/projects/" | append: page.project_slug | append: "/" %}
-{% assign media_files = "" | split: "" %}
-
 {% for f in site.static_files %}
   {% assign path_lower = f.path | downcase %}
-  {% if path_lower contains project_base and (path_lower contains "/thumbs/" == false) %}
-    {% assign ext = f.extname | downcase %}
-    {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" or ext == ".mp4" or ext == ".webm" %}
-      {% capture media_item %}
-        {
-          name: "{{ f.name }}",
-          type: "{% if ext == '.mp4' or ext == '.webm' %}video{% else %}image{% endif %}"
-        }
-      {% endcapture %}
-      {% assign media_files = media_files | push: media_item %}
-    {% endif %}
+  {% if path_lower contains project_base %}
+    {% unless path_lower contains "/thumbs/" %}
+      {% assign ext = f.extname | downcase %}
+      {% if ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" or ext == ".mp4" or ext == ".webm" %}
+        {% capture media_item %}
+          {
+            name: "{{ f.name }}",
+            type: "{% if ext == '.mp4' or ext == '.webm' %}video{% else %}image{% endif %}"
+          }
+        {% endcapture %}
+        {% assign media_files = media_files | push: media_item %}
+      {% endif %}
+    {% endunless %}
   {% endif %}
 {% endfor %}
 
