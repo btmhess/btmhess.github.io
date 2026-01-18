@@ -19,11 +19,11 @@ goal: "Electric conversion of a 1985 Honda Goldwing, with custon drivetrain and 
 requirements: |
   This vehicle was required to be an effective transportation option for my commute to university. It needed adequate range, reliability, and storage space to be daily transportation.
 
-result: |+
+result: |
   This motorcycle is still my daily transport; I have put around 6000 miles on it commuting to school and back. Once I got all the bugs worked out, it has been very reliable with almost no maintenance.
   So far I have replaced a couple drive belts and refreshed the motor bearings. There has been no meaningful battery degradation.
 
-specifications: |+
+specifications: |
   Overview:
   - 60mi range, 70mph top speed
   - 1200W charger: charges from standard outlet in 6 hours
