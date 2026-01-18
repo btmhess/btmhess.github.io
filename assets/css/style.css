@@ -157,11 +157,12 @@ body.project-page h2 {
 }
 
 #gallery img {
-  width: 150px;
+  max-height: 100px;
   height: auto;
-  cursor: pointer;
+  width: auto;
+  object-fit: contain;
   border-radius: 4px;
-  transition: transform 0.2s;
+  cursor: pointer;
 }
 
 #gallery img:hover {
