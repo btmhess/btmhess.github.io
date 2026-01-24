@@ -25,12 +25,12 @@ result: |
 specifications: |
   Overview: <br>
       - 28s28p configuration of EVE 2200mAh 18650 lithium battery cells.<br>
-	  - Total pack 103.6v 61.6ah nominal. 6.4kWh capacity.<br>
+      - Total pack 103.6v 61.6ah nominal. 6.4kWh capacity.<br>
       - 1200W charger: charges from standard outlet in 6 hours<br>
   Architecture: <br>
-      - 4x 14s14p modules, 2 in paralel 2 in series
-	  - Each set of paralell modules has 1 bms, both bms coordinate control of system.
-	  - Precharge handled externally, bms can disconnect contactors for safety.
+      - 4x 14s14p modules, 2 in paralel 2 in series<br>
+      - Each set of paralell modules has 1 bms, both bms coordinate control of system.<br>
+      - Precharge handled externally, bms can disconnect contactors for safety.<br>
 
 related_projects:
   - goldwing
