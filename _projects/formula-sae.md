@@ -23,7 +23,7 @@ result: >
   Competition car is currently under construction, with design and development complete.
 
 specifications: >
-  Paragraph describing technical specs, dimensions, performance, etc.
+  Final specification TBD.
 
 related_projects:
 
