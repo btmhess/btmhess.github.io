@@ -17,7 +17,7 @@ goal: "LoboMotorSports - UNM Formula SAE Program"
 
 requirements: |
   The UNM (University of New Mexico) formula SAE program is operated as part of the Mechanical Engineering program cirriculum.<br>
-  I Participated as a member of the powertrain subteam during my Junior and Senior years, for the competition in June 20206.
+  I Participated as a member of the powertrain subteam during my Junior and Senior years, for the competition in June 2026.
 
 result: >
   Competition car is currently under construction, with design and development complete.
