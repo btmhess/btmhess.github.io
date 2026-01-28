@@ -33,7 +33,7 @@ specifications: |
 
   Drivetrain:<br>
       - Four 48v three phase permanent magnet brushless DC hub motors (20 in e-bike conversion motors)<br>
-      - Integrated hall-effect sensors for rotor position feedback<br><br>
+      - Integrated hall-effect sensors for rotor position feedback<br>
       - Four Flipsky 75100 Pro V2.0 VESC-based motor controllers with canbus communication<br>
       - Field-oriented control (FOC) with per-wheel torque and speed control<br>
       - Controllers networked over CANBus for synchronized control and telemetry<br>
@@ -80,12 +80,11 @@ specifications: |
 
   Cost breakdown:<br>
       - Total project cost (parts used in final iteration): ~$3,786<br>
-      - $1,820 (48%) Drivetrain and power<br>
-      - $660 (17%) Battery and charging<br>
-      - $1,430(38%) Suspension and steering<br>
-      - $230(6%) Chassis and structure<br>
-      - $190 (5%) Electrical and miscellaneous<br>
-
+      - $1,820  (48%) Drivetrain and power<br>
+      - $660    (17%) Battery and charging<br>
+      - $1,430  (38%) Suspension and steering<br>
+      - $230    (6%)  Chassis and structure<br>
+      - $190    (5%)  Electrical and miscellaneous<br>
 
 related_projects:
 - formula-sae
