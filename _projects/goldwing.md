@@ -8,7 +8,7 @@ favorite_order: 5
 project_date: 2022-9
 duration: 60
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
-status: complete_in_use
+status: complete_in_storage
 budget: 4379
 
 # organization options: Personal, FSAE, Sandia

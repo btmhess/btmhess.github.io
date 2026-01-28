@@ -1,6 +1,6 @@
 ---
 layout: project
-title: "Personal Portfolio Website"
+title: "This Website"
 project_slug: this-website
 
 # Sorting metadata
