@@ -1,0 +1,71 @@
+﻿part,vendor,location,qty,unit cost,total,notes
+Valve,Amazon,main,6,$9.65 ,$57.90 ,
+valve control board (4 pack),Amazon,main,1,$10.91 ,$10.91 ,need 2 of the 4 pack
+5 way vacumme manifold; push lock; 3/8 OD,Amazon,plumbing,2,$11.69 ,$23.38 ,
+3/8 OD black push lock pnumatic tubing (10 m roll),Amazon,plumbing,1,$19.69 ,$19.69 ,need 5 feet of the 10 m roll
+1/4 npt to 3/8 pushlock 90* fitting (10 pack),Amazon,plumbing,1,$13.99 ,$13.99 ,need 5 of the 10 pack
+1/2 npt to 3/8 pushlock 90* fitting (5+5 pack),Amazon,flow meter,1,$7.99 ,$7.99 ,need 1 of the 5 pack
+1/2 npt to 3/8 pushlock straight fitting (5+5 pack),Amazon,flow meter,1,,,need 1 of the 5 pack
+1/4 npt nipple fitting (5 pack),Amazon,valve,1,$5.39 ,$5.39 ,had to be shortened; can try to find different fittings; need 4 of the 5 pack
+push button (8 pack),Amazon,control,1,$14.98 ,$14.98 ,need 1 of the 8 pack
+4 pin JST-xh header,Amazon,control,1,$9.99 ,$9.99 ,need 5 of the kit
+3 pin JST-xh header,Amazon,control,2,,,need 2 of the kit
+2 pin JST-xh header,Amazon,control,2,,,need 2 of the kit
+control board pcb,Amazon,control,1,$9.88 ,$9.88 ,need 1 from kit
+large perf board,Amazon,,2,,,need 2 from kit
+long perf board,Amazon,,1,,,need 1 from kit
+adafruit neopixel (100 pack),Amazon,control,1,$14.88 ,$14.88 ,need 1 of 100 pack
+4-40 standoffs (pack of 25),Amazon,main,1,$7.18 ,$7.18 ,for mounting DC-DC and valve control board to main plate; need 7 of 25 pack
+duct tape battery pull handle,Amazon,battery,1,$10.87 ,$10.87 ,Gorilla tape
+value adjustment knob (5 pack),Amazon,,1,$8.89 ,$8.89 ,need 1 of 5 pack
+brightness control potentiometer (4 pack),Amazon,,1,$19.79 ,$19.79 ,need 1 of 4 pack
+"low profile 0.1"" spacing 40 pins male/female pair (5 pack)",Amazon,,1,$9.99 ,$9.99 ,need 4 of 5 pack
+2x 18650 battery holder (6 pack),Amazon,,1,$8.99 ,$8.99 ,need 1 of 6 pack
+1s lithium battery charge controller (15 pack),Amazon,,1,$8.99 ,$8.99 ,need 1 of 15 pack
+3.3v to 5v boost converter (5 pack),Amazon,,1,$9.39 ,$9.39 ,need 1 of 5 pack
+power toggle switch (10 pack),Amazon,,1,$6.48 ,$6.48 ,need 1 of 10 pack
+control board sled (per filament spool),Bambu Lab,control,2,$29.99 ,$59.98 ,3d printed; ASA white
+battery enclosure,Bambu Lab,battery,1,,$0.00 ,3d printed
+XQ2 holder bracket,Bambu Lab,main,1,,$0.00 ,3d printed
+instrument enclosure,Bambu Lab,main,1,,$0.00 ,3d printed
+enclosure latch,Bambu Lab,enclosure,1,,$0.00 ,3d printed
+enclosure door,Bambu Lab,enclosure,1,,$0.00 ,3d printed
+remote enclosure upper,Bambu Labs,,1,,$0.00 ,3d printed
+remote enclosure lower,Bambu Labs,,1,,$0.00 ,3d printed
+remote enclosure sun shade,Bambu Labs,,1,,$0.00 ,3d printed
+remote enclosure radio bracket,Bambu Labs,,1,,$0.00 ,3d printed
+18650 battery cell,Battery Junction,,2,$11.94 ,$23.88 ,
+PC filter holder,Pall,main,8,$163.17 ,"$1,305.36 ",need 4 per system + backup set
+Sensirion flow meter,DigiKey,main,2,$128.38 ,$256.76 ,
+12v dc to dc converter,DigiKey,,2,$62.92 ,$125.84 ,Used because we have some can be replaced with cheaper option
+short micro usb cable,DigiKey,control,2,$1.15 ,$2.30 ,1 for xq2; 1 for teensy programming
+Sparkfun MCP4225 DAC,DigiKey,control,1,$6.95 ,$6.95 ,
+Power meter,DigiKey,control,1,$9.95 ,$9.95 ,
+programming cable,DigiKey,control,1,$4.71 ,$4.71 ,usb A to A cable
+radio capacitor,DigiKey,control,2,,$0.00 ,Kit still on hand
+5v to 3.3v converter,DigiKey,control,2,$8.39 ,$16.78 ,
+Teensy 4.1 microcontroller,DigiKey,control,4,$29.60 ,$118.40 ,
+XQ2,InterMet,main,1,$600.00 ,$600.00 ,
+MaxAmps 8s battery,MaxAmps,main,2,$800.00 ,"$1,600.00 ",XT60 & JST-KH leads
+scroll vacuum pump,Scroll Labs,main,1,"$2,520.00 ","$2,520.00 ",
+cooling fan,Digikey,enclosure,1,$19.41 ,$19.41 ,
+fan guard,Digikey,enclosure,1,$0.95 ,$0.95 ,
+32gb industrial sd card,Amazon,control,3,$12.99 ,$38.97 ,
+4 char 7 segment display,Amazon,control,1,$2.50 ,$2.50 ,
+Radio,Amazon,control,2,$4.25 ,$8.49 ,
+antenna,Amazon,control,2,$4.50 ,$8.99 ,
+2.8 Inches TFT LCD Touch Screen,Amazon,,1,$16.39 ,$16.39 ,
+stylus,Amazon,,1,,$0.00 ,comes with display
+USB A socket,Amazon,control,2,$0.65 ,$1.30 ,one for XQ2; one for programming
+xt60 connector pair,Bambu Lab,wiring,1,,$0.00 ,on hand
+flow meter interface cable,parts from DigiKey,flow meter,,$200.00 ,$0.00 ,Parts sourced from digikey and assembled by hand
+pump exhaust,,pump,1,$100.00 ,$100.00 ,
+pump mounting bracket,,pump,1,$100.00 ,$100.00 ,
+sensirion o-ring,,flow meter,2,$5.00 ,$10.00 ,harbor freight o-ring kit
+aluminum base plate,,main,1,$40.00 ,$40.00 ,had stock plate on hand
+microcontroller rtc battery,,control,1,$10.00 ,$10.00 ,3v lithium coin cell with leads; on hand
+#4-40 screws,,main,,$2.00 ,$0.00 ,all control board; remote; and enclosure internal fasteners
+#6-32 screws,,main,,$2.00 ,$0.00 ,screws for mounting things to the instrument base plate
+M4 screws,,main,,$2.00 ,$0.00 ,screws for mounting pump and valves to instrument base plate
+,,,,,,
+Total,,,,,"$7,287.46 ",
