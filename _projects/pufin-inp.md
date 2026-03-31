@@ -4,7 +4,7 @@ title: "PUFIN INP Collector"
 project_slug: pufin-inp
 
 # Sorting metadata
-favorite_order: 25
+favorite_order: 14
 project_date: 2024-11
 duration: 16
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned

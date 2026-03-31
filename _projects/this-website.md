@@ -4,7 +4,7 @@ title: "This Website"
 project_slug: this-website
 
 # Sorting metadata
-favorite_order: 14
+favorite_order: 25
 project_date: 2026-1
 duration: 2
 # status options: planning , active , paused , complete_in_use , complete_storage , complete_abandoned
