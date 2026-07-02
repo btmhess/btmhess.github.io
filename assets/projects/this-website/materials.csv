@@ -1,0 +1,53 @@
+title,slug,Organization,Favorite,year,month,Duration,budget,status,related,.md ,thumbnail,pics clean,pics done,materials,published
+Electric Goldwing,goldwing,personal,5,2022,9,60,4379.15,complete_in_use,goldwing-battery,y,y,y,y,y,y
+Goldwing tractive battery,goldwing-battery,personal,6,2023,1,28,2336.87,complete_in_use,goldwing,y,y,y,y,y,y
+Fsae,formula-sae,FSAE,7,2025,1,75,100,active,,y,y,y,,,y
+This Website,this-website,personal,14,2026,1,2,0,complete_in_use,,y,y,y,y,y,y
+Quadwood Go-Kart,quadwood-kart,personal,15,2025,7,8,3786,complete_in_storage,,y,y,y,y,y,y
+Helix lamps,helix-lamps,personal,19,2025,11,6,285,complete_in_use,,y,y,y,y,y,y
+24s Battery,24s-tractive-battery,personal,20,2024,12,16,1143,complete_in_storage,goldwing,y,y,y,y,y,y
+motorized electric bicycle,motor-bicycle,personal,21,2021,4,70,1000,complete_abandoned,goldwing,y,y,y,y,,y
+INP (pufin),pufin-inp,Sandia,25,2024,11,16,7500,complete_in_use,goldwing,y,y,y,y,y,y
+tools and toolboxes,toolbox,Personal,26,2021,9,400,,,,,,y,,,
+Truenas server,truenas-server,personal,28,2023,7,32,,,,,,y,,,
+Freenas server,freenas-server,personal,29,2021,5,2,,,,,,y,,,
+Off grid power trailer,power-trailer,Sandia,30,2024,5,40,in email,,,,,y,,,
+Trailer battery pack,trailer-battery,Sandia,32,2024,8,16,,,,,,y,,,
+Torque vector car,torque-vector-car,personal,35,2023,5,3,,,,,,y,,,
+Lego Projects,lego,personal,39,2019,7,1040,,,,,,y,,,
+Arduino couloumb counter and bms interface,battery-management-V1,personal,40,2025,7,16,,,,,,y,,,
+Hydraulic digger senior project,hydraulic-digger,School,41,2020,5,2,,,,,,y,,,
+Climate sensor,climate-sensor,personal,44,2024,2,2,,,,,,y,,,
+Constant tension level wind,auto-tensioner,personal,45,2024,8,1,,,,,,y,,,
+Lenovo laptop battery bank,lenovo-battery,personal,46,2020,6,4,,,,,,y,,,
+Volvo XC70,volvo-xc70,personal,50,2021,8,6,,,,,,y,,,
+Honda CRV,honda-crv,personal,54,2020,12,2,,,,,,y,,,
+Cadillac CTS,cadillac-cts,personal,55,2023,11,3,,,,,,y,,,
+Heated Glove,heated-glove,personal,56,2023,12,2,,,,,,y,,,
+Goldwing Cargo boxes,goldwing-boxes,personal,60,2023,8,16,,,,,,y,,,
+Battery discharge bucket,discharge-bucket,personal,65,2023,4,1,,,,,,y,,,
+Sigil necklace re-creation,sigil-recreation,personal,69,2024,7,2,,,,,,y,,,
+Heat pump,heatpump,personal,70,2025,3,3,,,,,,y,,,
+Design III Project,me360-project,School,71,2024,4,4,,,,,,y,,,
+AWD Scooter,scooter,personal,73,2024,10,2,,,,,,y,,,
+Hoverboard,hoverboard,personal,75,2025,5,4,,,,,,y,,,
+Catio,catio,personal,80,2025,7,4,,,,,,y,,,
+Zero motorcycle,zero-motorcycle,personal,85,2024,11,2,,,,,,y,,,
+Volvo battery,volvo-battery,personal,90,2024,1,3,,,,,,y,,,
+Mercedes ,mercedes-450sel,personal,95,2024,5,40,,,,,,y,,,
+Tbs trailer scale model,scale-tbs,Sandia,100,2024,4,1,,,,,,y,,,
+Wind tunnel laminarizing inserts,laminar-prints,Sandia,110,2024,8,4,,,,,,y,,,
+wind vane inserts,vane-inserts,Sandia,115,2025,8,2,,,,,,y,,,
+PCM test board,pcm-test,FSAE,120,2023,5,1,,,,,,y,,,
+Keycaps,custom-keycaps,personal,125,2024,4,4,,,,,,y,,,
+Anno pivot bearings,anno-pivot,Sandia,130,2023,12,16,,,,,,y,,,
+Gigabot cura and hotend,gigabot-printer,Sandia,135,2023,11,6,,,,,,y,,,
+Minecraft,minecraft,personal,145,2015,7,520,,,,,,y,,,
+Top gear song Compendium,topgear-soundtrack,personal,150,2021,2,4,,,,,,y,,,
+Cat fed indicator,cat-track-spinner,personal,160,2025,1,1,,,,,,y,,,
+motorcycle transport stand,goldwing-stand,personal,165,2023,1,2,,,,,,y,,,
+Custom Desktop Computers,pc,personal,170,2015,9,300,,,,,,y,,,
+Traxxas,traxxas-slash,personal,175,,,,,,,,,y,,,
+Humidifier,humidifier,personal,180,2025,12,3,,,,,,y,,,
+Sv08 enclosure,sv08-printer,personal,185,2025,10,1,,,,,,y,,,
+Factorio,factorio,personal,190,2015,10,24,,,,,,y,,,
