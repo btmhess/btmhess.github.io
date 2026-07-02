@@ -1,13 +1,14 @@
 title,slug,Organization,Favorite,year,month,Duration,budget,status,related,.md ,thumbnail,pics clean,pics done,materials,published
 Electric Goldwing,goldwing,personal,5,2022,9,60,4379.15,complete_in_use,goldwing-battery,y,y,y,y,y,y
 Goldwing tractive battery,goldwing-battery,personal,6,2023,1,28,2336.87,complete_in_use,goldwing,y,y,y,y,y,y
-Fsae,formula-sae,FSAE,7,2025,1,75,100,active,,y,y,y,,,y
-This Website,this-website,personal,14,2026,1,2,0,complete_in_use,,y,y,y,y,y,y
+Formula SAE 2025,forula-sae-2025,FSAE,8,2025,1,25,100,complete_in_use,formula-sae-2026,y,y,y,y,,y
+Formula SAE 2026,formula-sae-2026,FSAE,7,2025,7,50,100,complete_in_use,formula-sae-2025,y,y,y,y,,y
+This Website,this-website,personal,25,2026,1,2,0,complete_in_use,,y,y,y,y,y,y
 Quadwood Go-Kart,quadwood-kart,personal,15,2025,7,8,3786,complete_in_storage,,y,y,y,y,y,y
 Helix lamps,helix-lamps,personal,19,2025,11,6,285,complete_in_use,,y,y,y,y,y,y
 24s Battery,24s-tractive-battery,personal,20,2024,12,16,1143,complete_in_storage,goldwing,y,y,y,y,y,y
 motorized electric bicycle,motor-bicycle,personal,21,2021,4,70,1000,complete_abandoned,goldwing,y,y,y,y,,y
-INP (pufin),pufin-inp,Sandia,25,2024,11,16,7500,complete_in_use,goldwing,y,y,y,y,y,y
+INP (pufin),pufin-inp,Sandia,14,2024,11,16,7500,complete_in_use,goldwing,y,y,y,y,y,y
 tools and toolboxes,toolbox,Personal,26,2021,9,400,,,,,,y,,,
 Truenas server,truenas-server,personal,28,2023,7,32,,,,,,y,,,
 Freenas server,freenas-server,personal,29,2021,5,2,,,,,,y,,,
